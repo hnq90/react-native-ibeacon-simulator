@@ -2,13 +2,13 @@ React Native Module that broadcasts an iBeacon uuid.
 
 # Setup
 
-`npm i --save react-native-ibeacon-simulator`
+`npm i --save rn-ibeacon-simulator`
 
 `react-native link`
 
 Import in your project:
 
-`import BeaconBroadcast from 'react-native-ibeacon-simulator'`
+`import BeaconBroadcast from 'rn-ibeacon-simulator'`
 
 # API
 

@@ -2,18 +2,20 @@
  * @providesModule BeaconBroadcast
  * @flow
  */
-'use strict';
-import React from 'react';
-import {
-  NativeModules,
-} from 'react-native';
+'use strict'
 
-const NativeBeaconBroadcast = NativeModules.BeaconBroadcast;
+import React from 'react'
+import { NativeModules, Platform } from 'react-native'
+
+const NativeBeaconBroadcast = NativeModules.BeaconBroadcast
 
 const BeaconBroadcast = {
   checkTransmissionSupported: function() {
     return new Promise((resolve, reject) => {
-      NativeBeaconBroadcast.checkTransmissionSupported(function(result) {
+      if (Platform.OS === 'ios') {
+        resolve()
+      } else {
+        NativeBeaconBroadcast.checkTransmissionSupported(function(result) {
          const errors = {
             1: 'NOT_SUPPORTED_MIN_SDK',
             2: 'NOT_SUPPORTED_BLE',
@@ -26,16 +28,18 @@ const BeaconBroadcast = {
           } else {
             reject(errors[result])
           }
-      });
-    });
+        })
+      }
+    })
   },
+
   startAdvertisingBeaconWithString: function (uuid, identifier, major, minor) {
-    NativeBeaconBroadcast.startSharedAdvertisingBeaconWithString(uuid, major, minor, identifier);
+    NativeBeaconBroadcast.startSharedAdvertisingBeaconWithString(uuid, major, minor, identifier)
   },
 
   stopAdvertisingBeacon: function () {
-    NativeBeaconBroadcast.stopSharedAdvertisingBeacon();
+    NativeBeaconBroadcast.stopSharedAdvertisingBeacon()
   },
-};
+}
 
-export default BeaconBroadcast;
+export default BeaconBroadcast
